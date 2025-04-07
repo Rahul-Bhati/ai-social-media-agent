@@ -61,8 +61,8 @@ Extract the entire spoken content from the given YouTube video URL.
 const twitterPrompt = `
  Ensure the tweet remains within 280 characters.
    - Use a casual and engaging tone while maintaining clarity.
-   - Include relevant hashtags, but do not overuse them.
    - Avoid special characters except emojis where appropriate.
+   - summarise in simple word within 280 charters from given transcribe text
 `;
 export async function POST(req) {
   console.log("First");
@@ -123,22 +123,22 @@ export async function POST(req) {
     });
 
     // Send the tweet
-    //   const tweetText = jss.twitterPost; // Extract only the Twitter post text
+      // const tweetText = jss.twitterPost; // Extract only the Twitter post text
 
-    //   console.log(tweetText)
+      // console.log(tweetText)
 
-    //   if (!tweetText) {
-    //       throw new Error("twitterPost is missing or empty!");
-    //   }
+      // if (!tweetText) {
+      //     throw new Error("twitterPost is missing or empty!");
+      // }
 
-    //   if (tweetText.length > 280) {
-    //       throw new Error("Tweet exceeds 280 characters!");
-    //   }
+      // if (tweetText.length > 280) {
+      //     throw new Error("Tweet exceeds 280 characters!");
+      // }
       
-    //   const cleanTweet = tweetText.replace(/\n/g, " "); // Remove newlines
+      // const cleanTweet = tweetText.replace(/\n/g, " "); // Remove newlines
 
-    //   const response = await twitterClient.v2.tweet(tweetText);
-    //   console.log("Tweet posted successfully:", response);
+      // const response = await twitterClient.v2.tweet(tweetText);
+      // console.log("Tweet posted successfully:", response);
 
       // Generate transcription
       const chatSession = model.startChat({

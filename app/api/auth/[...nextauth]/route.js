@@ -1,30 +1,8 @@
 import NextAuth from "next-auth";
 import TwitterProvider from "next-auth/providers/twitter";
+import { authOptions } from "./authOptions";
 
-const handler =  NextAuth({
-    providers: [
-        TwitterProvider({
-            clientId: process.env.TWITTER_APP_KEY,
-            clientSecret: process.env.TWITTER_APP_SECRET,
-            version: "1.0A", // Required for OAuth 1.0a (User Context)
-        }),
-    ],
-    callbacks: {
-        async jwt({ token, account }) {
-            if (account) {
-                token.accessToken = account.oauth_token;
-                token.accessSecret = account.oauth_token_secret; // This is needed!
-            }
-            return token;
-        },
-        async session({ session, token }) {
-            session.accessToken = token.accessToken;
-            session.accessSecret = token.accessSecret; // Ensure this is included
-            return session;
-        },
-    },
-    secret: process.env.NEXTAUTH_SECRET, // Ensure this is set in .env
-});
+const handler =  NextAuth(authOptions);
 export {handler as POST , handler as GET};
 
 // import NextAuth from "next-auth/next";

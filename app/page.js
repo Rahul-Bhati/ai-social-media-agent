@@ -1,8 +1,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThemeToggle } from "@/components/theme-toggle";
 import {
   ArrowRight,
@@ -15,36 +13,9 @@ import {
   Sparkles,
 } from "lucide-react";
 import LoginButton from "@/components/LoginButton";
-import axios from "axios";
+import FormComponent from "@/components/FormComponent";
 
 export default function LandingPage() {
-  // Server Action for Form Submission
-  async function generateTweets(formData) {
-    "use server"; // Marks this as a Server Action
-
-    const url = formData.get("url");
-    console.log("first", url);
-
-    if (!url) {
-      return { error: "Please provide a valid URL" };
-    }
-
-    // Simulate tweet generation (replace with your actual logic)
-    try {
-      // Example: Call an API or process the URL
-      const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
-      const res = await axios.post(`${apiBaseUrl}/api/genrate-tweet`, { url });
-
-      // const res = await axios.post("/api", { url });
-      console.log(res.data.message);
-
-      const tweets = `Generated tweets from ${url}`;
-      return { success: true, tweets };
-    } catch (error) {
-      console.log(error);
-      return { error: "Failed to generate tweets. Try again." };
-    }
-  }
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
@@ -107,78 +78,7 @@ export default function LandingPage() {
               </Button>
             </div>
             
-            {/* Optimized Tweet Generator Section */}
-            <div className="w-full max-w-3xl mt-8 rounded-lg border bg-background p-4 sm:p-6 shadow-md">
-              <Tabs defaultValue="video" className="w-full">
-                <TabsList className="grid grid-cols-2 mb-4 w-full">
-                  <TabsTrigger
-                    value="video"
-                    className="flex items-center justify-center text-sm sm:text-base py-2"
-                  >
-                    <Youtube className="mr-2 h-4 w-4" />
-                    YouTube
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="article"
-                    className="flex items-center justify-center text-sm sm:text-base py-2"
-                  >
-                    <FileText className="mr-2 h-4 w-4" />
-                    Article
-                  </TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="video" className="space-y-4">
-                  <form
-                    action={generateTweets}
-                    className="flex flex-col sm:flex-row gap-2"
-                  >
-                    <Input
-                      name="url"
-                      placeholder="Paste YouTube URL..."
-                      className="flex-1 text-sm sm:text-base"
-                      required
-                      type="url"
-                    />
-                    <Button
-                      type="submit"
-                      className="w-full sm:w-auto px-4"
-                      disabled={false} // Add loading state if needed
-                    >
-                      Generate Tweets
-                    </Button>
-                  </form>
-                  <p className="text-sm text-muted-foreground bg-muted p-3 rounded-md">
-                    Generate tweets from any YouTube video URL
-                  </p>
-                </TabsContent>
-
-                <TabsContent value="article" className="space-y-4">
-                  <form
-                    action={generateTweets}
-                    className="flex flex-col sm:flex-row gap-2"
-                  >
-                    <Input
-                      name="url"
-                      placeholder="Paste article URL..."
-                      className="flex-1 text-sm sm:text-base"
-                      required
-                      type="url"
-                    />
-                    <Button
-                      type="submit"
-                      variant="outline"
-                      className="w-full sm:w-auto px-4"
-                      disabled={false} // Add loading state if needed
-                    >
-                      Generate Tweets
-                    </Button>
-                  </form>
-                  <p className="text-sm text-muted-foreground bg-muted p-3 rounded-md">
-                    Generate tweets from any article URL
-                  </p>
-                </TabsContent>
-              </Tabs>
-            </div>
+            <FormComponent />
           </div>
         </section>
 
